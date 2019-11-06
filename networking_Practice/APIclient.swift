@@ -15,6 +15,10 @@ class APIclient {
         guard let url = URL(string: baseURL) else {return}
         let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error{
+                print(error)
+                return
+            }
             do {
                 if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? [Any]{
                     if let dictionary = json.first as? [String : AnyObject]{
